@@ -6,7 +6,7 @@ const checkUserExists = async (username) => {
         const [results] = await db.promise().query("SELECT * FROM account WHERE username = ?", [username])
         return results.length > 0
     } catch (error) {
-        throw error // no idea if this works
+        throw error
     }
 }
 
