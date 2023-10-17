@@ -9,7 +9,8 @@ const authRoutes = require('./routes/authRoute')
 app.use('/auth', authRoutes)
 
 app.get('/', (_, res) => {
-    // Handle the root route (e.g., the homepage)
+    // Handle the root route (e.g., the homepage) :)
+    // test
     res.send('Welcome to the homepage');
 });
 
