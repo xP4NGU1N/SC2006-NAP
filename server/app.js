@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const db = require('./db')
 const port = 8080
 
 // Middleware for parsing JSON data in request body
@@ -9,10 +10,16 @@ const authRoutes = require('./routes/authRoute')
 app.use('/auth', authRoutes)
 
 app.get('/', (_, res) => {
-    // Handle the root route (e.g., the homepage)
+    // Test localhost:8080
     res.send('Welcome to the homepage');
 });
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}.`)
-})
+// Connect to database and start server
+(async () => { 
+    await db.promise().connect()
+    console.log("Connected to MySQL")
+
+    app.listen(port, () => {
+        console.log(`Server is running on port ${port}`)
+    })
+}) ()

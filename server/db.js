@@ -10,12 +10,4 @@ const db = mysql.createConnection({
     connectionLimit: 10,
 })
 
-db.connect((err) => {
-    if (err) {
-        console.error("Error connecting to MySQL", err)
-        return
-    }
-    console.log("Connected to MySQL server")
-})
-
 module.exports = db
