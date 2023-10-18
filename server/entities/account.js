@@ -1,9 +1,10 @@
-const sequelize = require('../db')
+const { DataTypes } = require('sequelize')
+const { db } = require('../sequelize')
 
-const Account = sequelize.define("Account", {
+const Account = db.define("Account", {
     username: DataTypes.STRING,
     password: DataTypes.STRING,
     email: DataTypes.STRING
-})
+}, {tableName: "account"})
 
 module.exports = Account
