@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const db = require('./db')
+const sequelize = require('./db')
 const port = 8080
 
 // Middleware for parsing JSON data in request body
@@ -16,7 +16,7 @@ app.get('/', (_, res) => {
 
 // Connect to database and start server
 (async () => { 
-    await db.promise().connect()
+    await sequelize.authenticate()
     console.log("Connected to MySQL")
 
     app.listen(port, () => {
