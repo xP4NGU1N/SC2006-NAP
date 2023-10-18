@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt")
-const Account = require("../entities/account")
+const Account = require("../model/account")
 
 const checkUserExists = async (username) => {
     try {
