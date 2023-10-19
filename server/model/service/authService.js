@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 const Account = require('../entity/account')
+const { ValidationError, UserExistsError, UserNotFoundError } = require('./error')
 
 const validateSignupInput = (username, password, email) => {
     if (!username || !password || !email) return 'Empty input(s)'
@@ -19,12 +20,12 @@ const validateLoginInput = (username, password) => {
 const signup = async (username, password, email, req) => {
     const validationError = validateSignupInput(username, password, email)
     if (validationError) {
-        throw new Error(validationError)
+        throw new ValidationError(validationError)
     }
 
     const userExists = await checkUserExists(username)
     if (userExists) {
-        throw new Error('User already exists')
+        throw new UserExistsError()
     }
 
     const hashedPassword = await bcrypt.hash(password, 10)
@@ -36,18 +37,18 @@ const signup = async (username, password, email, req) => {
 const login = async (username, password, req) => {
     const validationError = validateLoginInput(username, password)
     if (validationError) {
-        throw new Error(validationError)
+        throw new ValidationError(validationError)
     }
 
     const User = await checkUserExists(username)
     if (!User) {
-        throw new Error('User not found')
+        throw new UserNotFoundError()
     }
 
     const hashedPassword = User.password
     const passwordMatch = await bcrypt.compare(password, hashedPassword)
     if (!passwordMatch) {
-        throw new Error('Incorrect password')
+        throw new ValidationError("Incorrect password")
     }
 
     req.session.userID = User.id // Store id in session

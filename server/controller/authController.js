@@ -7,7 +7,7 @@ const signup = async (req, res) => {
         res.status(201).json(result)
     } catch (error) {
         console.error('Error', error.message)
-        res.status(500).json({ error: error.message })
+        res.status(error.code || 500).json({ error: error.message })
     }
 }
 
@@ -18,17 +18,17 @@ const login = async (req, res) => {
         res.status(200).json(result)
     } catch (error) {
         console.error('Error', error.message)
-        res.status(500).json({ error: error.message })
+        res.status(error.code || 500).json({ error: error.message })
     }
 }
 
 const logout = async (req, res) => {
     try {
         const result = await authService.logout(req)
-        res.status(200).json(result)
+        res.status(error.code || 500).json(result)
     } catch (error) {
         console.error('Error destroying session:', error.message)
-        res.status(500).json({ message: 'Logout failed' })
+        res.status(error.code || 500).json({ message: 'Logout failed' })
     }
 }
 
