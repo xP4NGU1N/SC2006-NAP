@@ -3,8 +3,6 @@ const carparkService = require('../model/service/carparkService')
 const retrieveByAddress = async (req, res) => {
     try {
         const address = req.query.address || ""
-        console.log(req.query.address)
-        console.log(address)
         const carparks = await carparkService.retrieveByAddress(address, req)
         res.status(201).json(carparks)
     } catch (error) {

@@ -8,51 +8,59 @@ class ValidationError extends Error {
   
 class UserExistsError extends Error {
     constructor(message) {
-      super(message || "User already exists");
-      this.name = 'UserExistsError';
+      super(message || "User already exists")
+      this.name = 'UserExistsError'
       this.code = 409
     }
 }
   
 class UserNotFoundError extends Error {
     constructor(message) {
-      super(message || "User not found");
-      this.name = 'UserNotFoundError';
+      super(message || "User not found")
+      this.name = 'UserNotFoundError'
       this.code = 404
     }
 }
 
 class LogoutError extends Error {
     constructor(message) {
-      super(message || "Session logout error");
-      this.name = 'LogoutError';
+      super(message || "Session logout error")
+      this.name = 'LogoutError'
       this.code = 404
     }
 }
 
-
 class SessionTimeoutError extends Error {
     constructor(message) {
-      super(message || "Session timeout");
-      this.name = 'SessionTimeoutError';
+      super(message || "Session timeout")
+      this.name = 'SessionTimeoutError'
       this.code = 440
     }
 }
 
 class CarparkNotFoundError extends Error {
     constructor(message) {
-      super(message || "No carpark found");
-      this.name = 'CarparkNotFoundError';
+      super(message || "No carpark found")
+      this.name = 'CarparkNotFoundError'
       this.code = 404
     }
 }
 
 class StatusSetError extends Error {
     constructor(message) {
-      super(message || "Status already set");
-      this.name = 'StatusSetError';
+      super(message || "Status already set")
+      this.name = 'StatusSetError'
       this.code = 400
     }
 }
-  
-module.exports = { ValidationError, UserExistsError, UserNotFoundError, LogoutError, SessionTimeoutError, CarparkNotFoundError, StatusSetError };
+
+class CarparkLotNotFoundError extends Error {
+    constructor(message) {
+      super(message || "No carpark lot found")
+      this.name = 'CarparkLotNotFoundError'
+      this.code = 404
+    }
+}
+
+
+module.exports = { ValidationError, UserExistsError, UserNotFoundError, LogoutError, SessionTimeoutError, CarparkNotFoundError, StatusSetError, CarparkLotNotFoundError };

@@ -21,18 +21,13 @@ app.use(
 // Define and use routes
 const authRoutes = require('./routes/authRoute')
 const carparkRoutes = require('./routes/carparkRoute')
+const carparkLotRoutes = require('./routes/carparkLotRoute')
 app.use('/auth', authRoutes)
 app.use('/carpark', carparkRoutes)
-
-// test express-session on 8080/test
-app.get('/test', (req, res) => {
-    console.log(req.session)
-    if (req.session.userID) res.status(200).json({userID: req.session.userID})
-    else res.status(500).json({message: "not found"})
-});
+app.use('/carparklot', carparkLotRoutes)
 
 // Connect to database and start server
-(async () => { 
+const startServer = async () => {
     await db.authenticate()
     await sessionStore.sync()
     console.log("Connected to MySQL")
@@ -40,4 +35,6 @@ app.get('/test', (req, res) => {
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`)
     })
-}) ()
+}
+
+startServer()
