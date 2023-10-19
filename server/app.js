@@ -33,10 +33,11 @@ const startServer = async () => {
     await db.authenticate()
     await sessionStore.sync()
     console.log("Connected to MySQL")
-
-    app.listen(port, () => {
-        console.log(`Server is running on port ${port}`)
-    })
 }
 
 startServer()
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`)
+})
+
+module.exports = { app, startServer }
