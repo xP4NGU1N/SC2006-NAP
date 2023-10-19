@@ -24,7 +24,7 @@ app.use('/auth', authRoutes)
 // test express-session on 8080/test
 app.get('/test', (req, res) => {
     console.log(req.session)
-    if (req.session.userID) res.status(200).json({userID: req.session.userID}) // parseInt to convert back to number
+    if (req.session.userID) res.status(200).json({userID: req.session.userID})
     else res.status(500).json({message: "not found"})
 });
 
