@@ -2,12 +2,14 @@ const express = require('express')
 const app = express()
 const session = require('express-session');
 const { db, sessionStore } = require('./sequelize')
+const cors = require('cors')
 
 const port = 8080
 
 // Middleware for parsing JSON data in request body
 app.use(express.json())
-
+// Middlware to allow requests from different origins
+app.use(cors())
 // Middleware for storing session details
 app.use(
     session({
