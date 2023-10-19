@@ -1,11 +1,14 @@
-const { DataTypes, Model } = require('sequelize')
+const { DataTypes } = require('sequelize')
 const { db } = require('../../sequelize')
+const { Account } = require('./account')
+const { Carpark } = require('./carpark')
 
-class SavedCarpark extends Model {}
+const SavedCarpark = db.define("SavedCarpark", {
+    accountId: { type: DataTypes.INTEGER },
+    carparkId: { type: DataTypes.INTEGER }
+}, {tableName: "saved_carpark"})
 
-SavedCarpark.init({
-    accountID: { type: DataTypes.INTEGER },
-    carparkID: { type: DataTypes.INTEGER }
-}, { db, modelName: "savedCarpark" })
+SavedCarpark.belongsTo(Account, { foreignKey: 'accountId' });
+SavedCarpark.belongsTo(Carpark, { foreignKey: 'carparkId' });
 
-module.exports = SavedCarpark
+module.exports = { SavedCarpark }

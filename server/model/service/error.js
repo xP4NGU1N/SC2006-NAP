@@ -21,5 +21,38 @@ class UserNotFoundError extends Error {
       this.code = 404
     }
 }
+
+class LogoutError extends Error {
+    constructor(message) {
+      super(message || "Session logout error");
+      this.name = 'LogoutError';
+      this.code = 404
+    }
+}
+
+
+class SessionTimeoutError extends Error {
+    constructor(message) {
+      super(message || "Session timeout");
+      this.name = 'SessionTimeoutError';
+      this.code = 440
+    }
+}
+
+class CarparkNotFoundError extends Error {
+    constructor(message) {
+      super(message || "No carpark found");
+      this.name = 'CarparkNotFoundError';
+      this.code = 404
+    }
+}
+
+class StatusSetError extends Error {
+    constructor(message) {
+      super(message || "Status already set");
+      this.name = 'StatusSetError';
+      this.code = 400
+    }
+}
   
-module.exports = { ValidationError, UserExistsError, UserNotFoundError };
+module.exports = { ValidationError, UserExistsError, UserNotFoundError, LogoutError, SessionTimeoutError, CarparkNotFoundError, StatusSetError };

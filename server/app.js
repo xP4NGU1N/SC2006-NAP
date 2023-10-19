@@ -18,8 +18,11 @@ app.use(
     })
 )
 
+// Define and use routes
 const authRoutes = require('./routes/authRoute')
+const carparkRoutes = require('./routes/carparkRoute')
 app.use('/auth', authRoutes)
+app.use('/carpark', carparkRoutes)
 
 // test express-session on 8080/test
 app.get('/test', (req, res) => {

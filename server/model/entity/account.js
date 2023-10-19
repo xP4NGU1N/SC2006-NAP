@@ -7,4 +7,4 @@ const Account = db.define("Account", {
     email: DataTypes.STRING
 }, {tableName: "account"})
 
-module.exports = Account
+module.exports = { Account }

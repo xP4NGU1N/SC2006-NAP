@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
-const Account = require('../entity/account')
-const { ValidationError, UserExistsError, UserNotFoundError } = require('./error')
+const { Account } = require('../entity/account')
+const { ValidationError, UserExistsError, UserNotFoundError, LogoutError } = require('./error')
 
 const validateSignupInput = (username, password, email) => {
     if (!username || !password || !email) return 'Empty input(s)'
@@ -61,16 +61,13 @@ const checkUserExists = async (username) => {
 }
 
 const logout = async (req) => {
-    return new Promise((resolve, reject) => {
-        req.session.destroy((err) => {
-            if (err) {
-                console.error('Error destroying session:', err)
-                reject('Logout failed')
-            } else {
-                resolve('Logout completed')
-            }
-        })
-    })
+    try {
+        await req.session.destroy()
+        return 'Logout completed'
+    } catch (error) {
+        console.error('Error during logout:', error)
+        throw new LogoutError(error.message)
+    }
 }
 
 module.exports = { signup, login, logout }

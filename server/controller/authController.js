@@ -25,7 +25,7 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
     try {
         const result = await authService.logout(req)
-        res.status(error.code || 500).json(result)
+        res.status(200).json({ message: result })
     } catch (error) {
         console.error('Error destroying session:', error.message)
         res.status(error.code || 500).json({ message: 'Logout failed' })
