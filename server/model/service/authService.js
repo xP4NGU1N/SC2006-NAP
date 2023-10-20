@@ -31,7 +31,7 @@ const signup = async (username, password, email, req) => {
     const hashedPassword = await bcrypt.hash(password, 10)
     const newUser = await Account.create({ username, password: hashedPassword, email })
     req.session.userID = newUser.id // Store id in session
-    return { username: newUser.username }
+    return { id: newUser.id, username: newUser.username }
 }
 
 const login = async (username, password, req) => {
@@ -52,7 +52,7 @@ const login = async (username, password, req) => {
     }
 
     req.session.userID = User.id // Store id in session
-    return { username: User.username }
+    return { id: User.id, username: User.username }
 }
 
 const checkUserExists = async (username) => {
