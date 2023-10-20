@@ -5,7 +5,6 @@ const session = require('express-session')
 const { importCarparksFromCSV } = require('./data/importCarpark')
 const { db, sessionStore } = require('./sequelize')
 
-
 const port = 8080
 
 // Middleware for parsing JSON data in request body
