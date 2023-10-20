@@ -9,6 +9,6 @@ const CarparkLot = db.define("CarparkLot", {
     remarks: DataTypes.STRING
 }, {tableName: "carpark_lot"})
 
-CarparkLot.belongsTo(Carpark, { foreignKey: 'carparkID' })
+CarparkLot.belongsTo(Carpark, { foreignKey: 'carparkId' })
 
 module.exports = { CarparkLot }

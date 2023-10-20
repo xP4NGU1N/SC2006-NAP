@@ -50,4 +50,4 @@ const remove = async (req) => {
     return "carpark removed from saved"
 }
 
-module.exports = { retrieve, save, remove}
+module.exports = { retrieve, save, remove }
