@@ -32,4 +32,15 @@ const logout = async (req, res) => {
     }
 }
 
-module.exports = { signup, login, logout }
+const updatePw = async (req, res) =>{
+    try {
+        const { username, email , newPw} = req.body
+        const result = await authService.updatePw(username, email, newPw, req)
+        res.status(200).json(result)
+    }catch (error) {
+        console.error('Error', error.message)
+        res.status(error.code || 500).json({ error: error.message })
+    }
+}
+
+module.exports = { signup, login, logout, updatePw}
