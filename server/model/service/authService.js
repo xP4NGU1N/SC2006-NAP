@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const { Account } = require('../entity/account')
 const { ValidationError, UserExistsError, UserNotFoundError, LogoutError } = require('./error')
+const session = require('express-session')
 
 const validateSignupInput = (username, password, email) => {
     if (!username || !password || !email) return 'Empty input(s)'
@@ -70,4 +71,20 @@ const logout = async (req) => {
     }
 }
 
-module.exports = { signup, login, logout }
+const updatePw = async (username, email, newPw, req) => {
+    const validationError = validateSignupInput(username, newPw, email)
+    if(validationError)
+    {throw new ValidationError(validationError)}
+    const User = await Account.findOne({where:{username,email}})
+    console.log(User)
+    if(!User)
+    {
+        throw new UserNotFoundError()
+    }
+    const hashPw = await bcrypt.hash(newPw,10)
+    await User.update({password:hashPw})
+    req.session.userID = User.id // Store id in session
+    return{id:User.id, username:User.username}
+}
+
+module.exports = { signup, login, logout, updatePw }
