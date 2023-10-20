@@ -61,6 +61,18 @@ const checkUserExists = async (username) => {
     return User
 }
 
+const updatePassword = async (username, email, newPassword, req) => {
+    const validationError = validateSignupInput(username, newPassword, email)
+    if (validationError) throw new ValidationError(validationError)
+    const User = await Account.findOne({ where: { username, email } })
+    if (!User) throw new UserNotFoundError()
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10)
+    await User.update({ password: hashedNewPassword })
+    req.session.userID = User.id // Store id in session
+    return{ id: User.id, username: User.username }
+}
+
 const logout = async (req) => {
     try {
         await req.session.destroy()
@@ -71,20 +83,4 @@ const logout = async (req) => {
     }
 }
 
-const updatePw = async (username, email, newPw, req) => {
-    const validationError = validateSignupInput(username, newPw, email)
-    if(validationError)
-    {throw new ValidationError(validationError)}
-    const User = await Account.findOne({where:{username,email}})
-    console.log(User)
-    if(!User)
-    {
-        throw new UserNotFoundError()
-    }
-    const hashPw = await bcrypt.hash(newPw,10)
-    await User.update({password:hashPw})
-    req.session.userID = User.id // Store id in session
-    return{id:User.id, username:User.username}
-}
-
-module.exports = { signup, login, logout, updatePw }
+module.exports = { signup, login, logout, updatePassword }
