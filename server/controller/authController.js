@@ -43,4 +43,4 @@ const logout = async (req, res) => {
     }
 }
 
-module.exports = { signup, login, logout, updatePassword }
+module.exports = { signup, login, updatePassword, logout }
