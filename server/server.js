@@ -10,7 +10,7 @@ const port = 8080
 // Middleware for parsing JSON data in request body
 server.use(express.json())
 // Middlware to allow requests from different origins
-server.use(cors())
+server.use(cors({ origin: 'http://localhost:8081' }))
 // Middleware for storing session details
 server.use(
     session({
