@@ -5,6 +5,8 @@ import axios from 'axios';
 import proj4 from 'proj4';
 import data from '../../assets/hdb_carpark.json';
 import { useNavigation } from "@react-navigation/native";
+
+const { BASE_URL } = require('../../server/config.js')
 //import Geolocation from '@react-native-community/geolocation';
 
 proj4.defs([
@@ -19,13 +21,11 @@ proj4.defs([
 
 const URA_API_URL = 'https://www.ura.gov.sg/uraDataService/insertNewToken.action';
 const govsgurl = 'https://api.data.gov.sg/v1/transport/carpark-availability';
-const baseurl = 'http://localhost:8080'
 const accessKey = '098ecd87-27d6-414e-adc6-e8e7f3e65207'; // Use the provided access key
 const markers = [];
+
 const Home = () => {
   
-
-
   const [position, setPosition] = useState({
     latitude: 10,
     longitude: 10,
@@ -77,11 +77,6 @@ const Home = () => {
             Token: token,
           },
         });
-        
-        const testAPI = await axios.get(`${baseurl}/carpark/retrieve` , {
-          headers: {"Content-Type": "application/json" }
-        })
-        console.log(testAPI)
 
         const govsgresponse = await axios.get(govsgurl ,{
           headers:{
@@ -91,8 +86,12 @@ const Home = () => {
         const govsgdata = govsgresponse.data.items[0].carpark_data;
         setCarparkData2(govsgdata);
         
-  
-
+        console.log(`${BASE_URL}/carpark/retrieve`)
+        const testAPI = await axios.get(`${BASE_URL}/carpark/retrieve` , {
+          headers: {}
+        })
+        
+        console.log(testAPI)
 
         const carparkData = availabilityResponse.data.Result;
         //for(let i = 0;i<carparkData2.length;i++){
