@@ -3,6 +3,7 @@ const { db } = require('../../sequelize')
 const { Carpark } = require('./carpark')
 
 const CarparkLot = db.define("CarparkLot", {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     accountId: DataTypes.STRING,
     carparkId: DataTypes.INTEGER,
     carparkLot: DataTypes.STRING,
