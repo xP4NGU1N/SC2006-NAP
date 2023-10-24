@@ -10,7 +10,7 @@ const Login = () =>{
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
-
+   
   const onSignUpPressed = () => {
     console.warn("Sign Up");
 

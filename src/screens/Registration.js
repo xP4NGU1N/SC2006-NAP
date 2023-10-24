@@ -14,6 +14,10 @@ const Registration = () =>{
 
     navigation.navigate('Login'); 
   }
+
+  const onSignUpPressed = () => {
+    navigation.navigate('Home');
+  }
   
    
   return (
@@ -61,7 +65,14 @@ const Registration = () =>{
             <TouchableOpacity 
               onPress={() => {
                 //handle onPress
-                Alert.alert('Successfully registered an account!');
+                Alert.alert('Successfully registered an account!', '', [
+                  {
+                    text: 'OK',
+                    onPress: () => {
+                      navigation.navigate('Home');
+                    }
+                  }
+                ]);
             }}>
               <View style = {styles.button}>
                 <Text style = {styles.buttonText}>Sign Up </Text>
