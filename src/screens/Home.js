@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 import MapView, {Marker, Circle } from 'react-native-maps';
 import axios from 'axios';
 import proj4 from 'proj4';
 import data from '../../assets/hdb_carpark.json';
 import { useNavigation } from "@react-navigation/native";
+import imageicon from '../../assets/adaptive-icon.png'
 
-const { BASE_URL } = require('../../server/config.js')
 //import Geolocation from '@react-native-community/geolocation';
 
 proj4.defs([
@@ -22,17 +22,20 @@ proj4.defs([
 const URA_API_URL = 'https://www.ura.gov.sg/uraDataService/insertNewToken.action';
 const govsgurl = 'https://api.data.gov.sg/v1/transport/carpark-availability';
 const accessKey = '098ecd87-27d6-414e-adc6-e8e7f3e65207'; // Use the provided access key
+const { BASE_URL } = require('../../server/config.js')
 const markers = [];
-
 const Home = () => {
   
+
+
   const [position, setPosition] = useState({
     latitude: 10,
     longitude: 10,
     latitudeDelta: 0.001,
     longitudeDelta: 0.001,
   });
-
+  const navigation = useNavigation();
+  const [markers, setMarkers] = useState([]);
   const [carparkData, setCarparkData] = useState([]);
   const [carparkData2, setCarparkData2] = useState([]);
   const [region, setRegion] = useState({
@@ -78,20 +81,23 @@ const Home = () => {
           },
         });
 
-        const govsgresponse = await axios.get(govsgurl ,{
+        const govsgresponse = await axios.get(govsgurl,{
           headers:{
             service: 'carpark_info'
           }
         })
         const govsgdata = govsgresponse.data.items[0].carpark_data;
         setCarparkData2(govsgdata);
-        
+
         console.log(`${BASE_URL}/carpark/retrieve`)
         const testAPI = await axios.get(`${BASE_URL}/carpark/retrieve` , {
           headers: {}
         })
         
         console.log(testAPI)
+        
+  
+
 
         const carparkData = availabilityResponse.data.Result;
         //for(let i = 0;i<carparkData2.length;i++){
@@ -178,6 +184,7 @@ const Home = () => {
           coordinate={{
             latitude : floatlat,
             longitude : floatlong,}}
+      
             title={carpark.carparkNo}
             description={carpark.lotsAvailable}
             
@@ -191,11 +198,110 @@ const Home = () => {
     }
   }
 
+
+
+  function searchAddressInJSON(address) {
+    try {
+      // Read the JSON data from the file.
+      console.log(address);
+  
+      // Filter the data based on the "address" field.
+      const filteredData = data.filter((carpark) =>
+        carpark.address.toLowerCase().includes(address.toLowerCase()) ||
+        carpark.car_park_no.toLowerCase().includes(address.toLowerCase())
+
+      );
+  
+      // Extract "x_coord" and "y_coord" values from the filtered data.
+      const coords = filteredData.map((carpark) => ({
+        x_coor: carpark.x_coor,
+        y_coor: carpark.y_coor,
+        car_park_no: carpark.car_park_no
+      }));
+  
+      console.log(filteredData);
+
+      return coords;
+    } catch (error) {
+      console.error('Error reading or parsing the JSON file:', error);
+      return [];
+    }
+  }
+
+  const [searchText, setSearchText] = useState('');
+  const [searchMarker, setSearchMarker] = useState({
+    latitude: 1.3303110584045954, // Default latitude
+    longitude: 103.85885005071715, // Default longitude
+    latitudeDelta: 0.02,
+    longitudeDelta: 0.02,
+  });
+
+  const [searchMarkerColor, setSearchMarkerColor] = useState('#0000ff');
+
+  const handleSearchTextChange = (text) => {
+    setSearchText(text);
+    // You can perform your search logic here based on the text input
+    // Update markers or region accordingly
+  };
+
+
+
+  const handleSearchButtonPress = () => {
+    const coordinates = searchAddressInJSON(searchText);
+
+    // You can now use the coordinates array to update your map view or perform any other actions as needed.
+    // For example, if you want to center the map on the first result, you can do something like this:
+  
+    if (coordinates.length > 0) {
+      const firstCoordinate = coordinates[0];
+      console.log(firstCoordinate.y_coor,firstCoordinate.x_coor)
+      const newRegion = {
+        latitude: firstCoordinate.x_coor,
+        longitude: firstCoordinate.y_coor,
+        latitudeDelta: 0.1, // Adjust these values as needed
+        longitudeDelta: 0.1,
+      };
+      
+      console.log(firstCoordinate.car_park_no)
+      const markerIndex = markers.findIndex(marker => marker.key === String(firstCoordinate.car_park_no));
+      console.log(markerIndex)
+
+      if (markerIndex !== -1) {
+        console.log("changing color")
+        // Update the color of the found marker to green
+        setSearchMarkerColor('#0F0F0F')
+        console.log(newRegion)
+        setSearchMarker(newRegion)
+        
+      }
+
+    }
+
+  };
   return (
     
     <View style={styles.container}>
+      <TextInput
+        style={styles.searchBar}
+        placeholder="Search for a location..."
+        value={searchText}
+        onChangeText={handleSearchTextChange}
+      />
+      <Button
+          title="Search"
+          onPress={handleSearchButtonPress}
+          
+        />
+
       {carparkData.length > 0 ? (
         <MapView style={styles.map} region={region}>
+          <Marker
+            //image={imageicon}
+            pinColor= {searchMarkerColor}
+            coordinate={searchMarker}
+            
+
+          ></Marker>
           <Marker
             draggable
             pinColor='#0000ff'
@@ -208,10 +314,7 @@ const Home = () => {
             radius = {1000}
           />
           {markers}
-            <Marker
-              title='You are here'
-              description='This is a description'
-              coordinate={position}/>
+            
         </MapView>
       ) : (
         <Text>Loading carpark data...</Text>
@@ -228,6 +331,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  searchBar: {
+    width: '100%', // Adjust the width to your preference (e.g., 80% of the screen width)
+    height: 60,
+    borderWidth: 1,
+    borderColor: 'gray',
+    paddingLeft: 10,
+    paddingTop: 10,
+  }
 });
 
 export default Home;
