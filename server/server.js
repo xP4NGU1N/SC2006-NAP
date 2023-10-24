@@ -62,9 +62,6 @@ const startServer = async () => {
     startNgrok()
 }
 
-var app = express();
-app.use(cors());
-
 startServer()
 
 server.listen(port, () => {
