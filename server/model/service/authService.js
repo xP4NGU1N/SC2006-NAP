@@ -3,7 +3,6 @@ const nodemailer = require('nodemailer')
 const { Account } = require('../entity/account')
 const { emailPassword } = require('../../password')
 const { ValidationError, UserExistsError, UserNotFoundError, SendEmailError, VerificationError, LogoutError, SessionTimeoutError } = require('./error')
-//const session = require('express-session')
 
 // Create a Nodemailer transport object
 const transporter = nodemailer.createTransport({
@@ -119,7 +118,7 @@ const verifyPasswordRequestAndUpdate = async (verificationCode, req) => {
     if (!User) throw new UserNotFoundError()
 
     if (User.verificationCode != verificationCode) throw new VerificationError()
-    await User.update({ password: User.newPassword, newPassword: "" })
+    await User.update({ password: User.newPassword, newPassword: "", verificationCode: "" })
     req.session.userID = User.id // Store id in session
     return{ id: User.id, username: User.username }
 }
