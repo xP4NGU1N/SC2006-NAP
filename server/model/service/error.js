@@ -22,6 +22,22 @@ class UserNotFoundError extends Error {
     }
 }
 
+class SendEmailError extends Error {
+  constructor(message) {
+    super(message || "Email unable to send")
+    this.name = 'SendEmailError'
+    this.code = 500
+  }
+}
+
+class VerificationError extends Error {
+  constructor(message) {
+    super(message || "Email verification code wrong")
+    this.name = 'VerificationError'
+    this.code = 400
+  }
+}
+
 class LogoutError extends Error {
     constructor(message) {
       super(message || "Session logout error")
@@ -62,5 +78,4 @@ class CarparkLotNotFoundError extends Error {
     }
 }
 
-
-module.exports = { ValidationError, UserExistsError, UserNotFoundError, LogoutError, SessionTimeoutError, CarparkNotFoundError, StatusSetError, CarparkLotNotFoundError };
+module.exports = { ValidationError, UserExistsError, UserNotFoundError, SendEmailError, VerificationError, LogoutError, SessionTimeoutError, CarparkNotFoundError, StatusSetError, CarparkLotNotFoundError };
