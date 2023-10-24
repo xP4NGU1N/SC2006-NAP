@@ -67,26 +67,34 @@ const Registration = () =>{
             <TouchableOpacity 
               onPress={() => {
                 //handle onPress
-                axios.post('${BASE_URL}/auth/signup', {
+                axios.post(`${BASE_URL}/auth/signup`, {
                   username: email,
                   password: password,
                   email: email,
                 })
                 .then(function (response) {
                   console.log(response)
-                })
-                .catch(function (error) {
-                  console.log(error);
-                });
-
-                Alert.alert('Successfully registered an account!', '', [
+                  Alert.alert('Successfully registered an account!', '', [
                   {
                     text: 'OK',
                     onPress: () => {
                       navigation.navigate('Home');
                     }
                   }
-                ]);
+                  ]);
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
+                /*Alert.alert('Successfully registered an account!', '', [
+                  {
+                    text: 'OK',
+                    onPress: () => {
+                      navigation.navigate('Home');
+                    }
+                  }
+                ]);*/
             }}>
               <View style = {styles.button}>
                 <Text style = {styles.buttonText}>Sign Up </Text>

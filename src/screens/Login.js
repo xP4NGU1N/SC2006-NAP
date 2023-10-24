@@ -3,6 +3,7 @@ import { SafeAreaView, View, Text, StyleSheet, Image, TextInput, TouchableOpacit
 import Logo from '../../assets/naplogo.png';
 import { useNavigation } from "@react-navigation/native";
 import Checkbox from 'expo-checkbox';
+import axios from "axios";
 
 const Login = () =>{
   const navigation = useNavigation();
@@ -10,6 +11,7 @@ const Login = () =>{
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const { BASE_URL } = require('../../server/config.js')
    
   const onSignUpPressed = () => {
     console.warn("Sign Up");
@@ -20,7 +22,18 @@ const Login = () =>{
   const onSignInPressed = () => {
     console.warn("Sign In");
 
-    navigation.navigate('Home');
+    axios.post(`${BASE_URL}/auth/login`, {
+      username: email,
+      password: password,
+    })
+    .then(function (response) {
+      console.log(response)
+      navigation.navigate('Home');
+    })
+    .catch(function (error) {
+      console.log(error);
+      console.warn("wrong input")
+    });    
   }
 
   const onForgotPressed = () => {
