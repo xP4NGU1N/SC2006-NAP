@@ -1,0 +1,391 @@
+{
+	"info": {
+		"_postman_id": "5e1037ff-bd69-4f56-846a-2af22ffe8983",
+		"name": "NAP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "28323643"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": ""
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "s%3Ar48qtksHYmxWeQg_gsy7znFevaE0fXth.ShYplybXwA4S8r9IKzEYUmASVNkk6c1LgBGtvo4O%2Fm0",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test1\",\r\n    \"password\": \"Password1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/auth/login"
+			},
+			"response": []
+		},
+		{
+			"name": "requestNewPassword",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": ""
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "s%3Ar48qtksHYmxWeQg_gsy7znFevaE0fXth.ShYplybXwA4S8r9IKzEYUmASVNkk6c1LgBGtvo4O%2Fm0",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test1\",\r\n    \"email\": \"ryan123pan@gmail.com\",\r\n    \"newPassword\": \"Password1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/auth/requestUpdate"
+			},
+			"response": []
+		},
+		{
+			"name": "verifyPasswordRequestAndUpdate",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": ""
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "s%3Ar48qtksHYmxWeQg_gsy7znFevaE0fXth.ShYplybXwA4S8r9IKzEYUmASVNkk6c1LgBGtvo4O%2Fm0",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test_email\",\r\n    \"newPassword\": \"Password1\",\r\n    \"verificationCode\": \"657999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/auth/verifyPasswordRequestAndUpdate"
+			},
+			"response": []
+		},
+		{
+			"name": "signup",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": ""
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "s%3Ar48qtksHYmxWeQg_gsy7znFevaE0fXth.ShYplybXwA4S8r9IKzEYUmASVNkk6c1LgBGtvo4O%2Fm0",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test0\",\r\n    \"password\": \"Password1\",\r\n    \"email\": \"test@test.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/auth/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": ""
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "s%3Ar48qtksHYmxWeQg_gsy7znFevaE0fXth.ShYplybXwA4S8r9IKzEYUmASVNkk6c1LgBGtvo4O%2Fm0",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/auth/logout"
+			},
+			"response": []
+		},
+		{
+			"name": "retrieveCarpark",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": ""
+					}
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "s%3Ar48qtksHYmxWeQg_gsy7znFevaE0fXth.ShYplybXwA4S8r9IKzEYUmASVNkk6c1LgBGtvo4O%2Fm0",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/carpark/retrieve"
+			},
+			"response": []
+		},
+		{
+			"name": "retrieveSavedCarpark",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": ""
+					}
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "s%3Ar48qtksHYmxWeQg_gsy7znFevaE0fXth.ShYplybXwA4S8r9IKzEYUmASVNkk6c1LgBGtvo4O%2Fm0",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/carpark/retrieve/account"
+			},
+			"response": []
+		},
+		{
+			"name": "saveCarpark",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": ""
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "s%3Ar48qtksHYmxWeQg_gsy7znFevaE0fXth.ShYplybXwA4S8r9IKzEYUmASVNkk6c1LgBGtvo4O%2Fm0",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"carparkId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/carpark/save"
+			},
+			"response": []
+		},
+		{
+			"name": "removeCarpark",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": ""
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "s%3Ar48qtksHYmxWeQg_gsy7znFevaE0fXth.ShYplybXwA4S8r9IKzEYUmASVNkk6c1LgBGtvo4O%2Fm0",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"carparkId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/carpark/remove"
+			},
+			"response": []
+		},
+		{
+			"name": "retrieveCarparkLot",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": ""
+					}
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "s%3Ar48qtksHYmxWeQg_gsy7znFevaE0fXth.ShYplybXwA4S8r9IKzEYUmASVNkk6c1LgBGtvo4O%2Fm0",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/carparklot/retrieve"
+			},
+			"response": []
+		},
+		{
+			"name": "saveCarparkLot",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": ""
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "s%3Ar48qtksHYmxWeQg_gsy7znFevaE0fXth.ShYplybXwA4S8r9IKzEYUmASVNkk6c1LgBGtvo4O%2Fm0",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"carparkId\": 1,\r\n    \"carparkLot\": \"31\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/carparklot/save"
+			},
+			"response": []
+		},
+		{
+			"name": "removeCarparkLot",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": ""
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "s%3Ar48qtksHYmxWeQg_gsy7znFevaE0fXth.ShYplybXwA4S8r9IKzEYUmASVNkk6c1LgBGtvo4O%2Fm0",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/carparklot/remove"
+			},
+			"response": []
+		}
+	]
+}
