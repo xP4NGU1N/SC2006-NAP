@@ -89,12 +89,12 @@ const Home = () => {
         const govsgdata = govsgresponse.data.items[0].carpark_data;
         setCarparkData2(govsgdata);
 
-        console.log(`${BASE_URL}/carpark/retrieve`)
+        /*console.log(`${BASE_URL}/carpark/retrieve`)
         const testAPI = await axios.get(`${BASE_URL}/carpark/retrieve` , {
           headers: {}
         })
         
-        console.log(testAPI)
+        console.log(testAPI)*/
         
   
 
@@ -296,9 +296,11 @@ const Home = () => {
       {carparkData.length > 0 ? (
         <MapView style={styles.map} region={region}>
           <Marker
-            //image={imageicon}
+            //image={markericon}
+            //style = {{ width: 5, height: 5 }}
             pinColor= {searchMarkerColor}
             coordinate={searchMarker}
+            zIndex={1}
             
 
           ></Marker>
