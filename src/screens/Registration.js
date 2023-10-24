@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { SafeAreaView, View, Text, StyleSheet, Image, TextInput, TouchableOpacity, Alert, useWindowDimensions} from "react-native";
 import Logo from '../../assets/naplogo.png';
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 
 const Registration = () =>{
   const navigation = useNavigation();
   const{height} = useWindowDimensions();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { BASE_URL } = require('../../server/config.js')
 
   const onLogInPressed = () => {
     console.warn("Log In");
@@ -65,6 +67,18 @@ const Registration = () =>{
             <TouchableOpacity 
               onPress={() => {
                 //handle onPress
+                axios.post('${BASE_URL}/auth/signup', {
+                  username: email,
+                  password: password,
+                  email: email,
+                })
+                .then(function (response) {
+                  console.log(response)
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+
                 Alert.alert('Successfully registered an account!', '', [
                   {
                     text: 'OK',
