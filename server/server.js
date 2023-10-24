@@ -56,7 +56,7 @@ const startServer = async () => {
     // Initialise carpark from CSV file for first time setup:
     // https://beta.data.gov.sg/collections/148/datasets/d_23f946fa557947f93a8043bbef41dd09/view
     // Note: carparks with same address are considered duplicate and only 1 copy is stored
-    if (carparkCount == 0) await importCarparksFromCSV("./data/carpark_location.csv")
+    if (carparkCount == 0) await importCarparksFromCSV("./server/data/carpark_location.csv")
     await sessionStore.sync()
     console.log("Database setup and connection completed")
     startNgrok()
